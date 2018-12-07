@@ -128,7 +128,7 @@ then I should receive a success message of 400 Bad Request.
     - This returned a 200 OK, and I was able to get the resource at hash/jobIdentifier. This is a similar situation as the case immediately above, this should probably have some validation on it so people don't supply whitespace.
   
 Sad
-  - Given I specify an empty string as the password (invalid postbody of {"password":null}),
+  - Given I specify null as the password (invalid postbody of {"password":null}),
 when I POST to IP:port/hash,
 then I should receive a success message of 400 Bad Request.
   - FAILED
