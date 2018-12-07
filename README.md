@@ -59,6 +59,8 @@ These cases are covered by cases for the other criteria - if it's not answering 
 
 I wanted to test postbody input, since after authentication (of which there isn't much here), it's the next most important thing to me, since APIs depend on the specific formatting/requirements to transfer information.
 
+**A POST to /hash should accept a password.  It should return a job identifier immediately.  It should then wait 5 seconds and compute the password hash.  The hashing algorithm should be SHA512.
+
 ##### *NOTES: 
   - All my successful POSTs returned 200 OK instead of 201 Created. Since it's hashing the password and creating a job identifier, 201 Created seems more appropriate. Thus the generic "then I should receive a success message." in the test cases.
   - I did not have enough insight re: the SHA512 algorithm, though I did try to figure how how to see that in action somehow (I failed at that.)
@@ -133,7 +135,7 @@ then I should receive a success message of 400 Bad Request.
     - This returned a 200 OK, and I was able to get the resource at hash/jobIdentifier. This is another case of needing validation.
     
 
-- A GET to /hash should accept a job identifier.  It should return the base64 encoded password hash for the corresponding POST request.
+**A GET to /hash should accept a job identifier.  It should return the base64 encoded password hash for the corresponding POST request.
 
 Happy
   - Given I have successfully POSTed and received a valid job identifier integer,
@@ -156,7 +158,7 @@ then I should receive an error message of 400 Bad Request
     - If this assessment required any sort of actual authentication or permissions, I would argue that this should be a 404.  Just from the possibility of trying to GET using another user's job identifier.
     
   
-- A GET to /stats should accept no data.  It should return a JSON data structure for the total hash requests since the server started and the average time of a hash request in milliseconds.
+**A GET to /stats should accept no data.  It should return a JSON data structure for the total hash requests since the server started and the average time of a hash request in milliseconds.
 
   Happy
   - Given I GET IP:port/hash/stats,
