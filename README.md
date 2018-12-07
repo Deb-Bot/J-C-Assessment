@@ -12,7 +12,7 @@
 - No additional password requests should be allowed when shutdown is pending.
 
 #### Test Plan
-##### (Note - all testing done in Windows 10 using: PowerShell, Command Window, Postman, Zenmap, Fiddler)
+##### (Note - all testing done in Windows 10 using: PowerShell, Command Window, Postman, Zenmap, Fiddler, jMeter)
 
 **1) When launched, the application should wait for http connections.**
 
@@ -173,9 +173,39 @@ then I should receive an error message of 400 Bad Request
 
 **4)The software should be able to process multiple connections simultaneously.**
 
+I used jMeter to test this with 10,000 concurrent POSTs. I'd want to spend more time testing this, though, and maybe with a more robust setup.
+
 Happy
-Given multiple connections/calls are made,
+Given many concurret calls are made,
 then I should not have any failures running these calls concurrently.
+  - PASSED
+   
+**5)The software should support a graceful shutdown request.  Meaning, it should allow any in-flight password hashing to complete, reject any new requests, respond with a 200 and shutdown.**
+
+Happy
+  - Given I POST to shutdown the software,
+  and there are in-flight requests,
+  then any new requests should be rejected.
+    - FAILED - shutdown software while jMeter 20k calls test running.
+      ```
+      2018/12/07 15:02:47 Shutdown signal recieved
+      2018/12/07 15:02:48 recieved request after shutdown
+      ```
+Happy
+  - Given I POST to shutdown the software,
+  and there are no in-flight requests,
+  then the response should be 200 and the application should shut down.
+    - PASSED - I think.  The application window closed so quickly that I couldn't catch what was on it. I wasn't able to capture the response code, but I did verify that the application shut down.  The window closed and a quick POST to /hash verified there was nothing listening for calls.
+      - For testing purposes, it might be good to keep the console open so the tester can catch any messages before the window closes.  They could press any key or just CTRL-C.
+  
+  
+**5)No additional password requests should be allowed when shutdown is pending.**
+
+This appears to be somewhat tested in test case #5, but at the same time, I wanted to slow down the shutdown call somehow, I was not able to figure out how to do that.  
+
+
+   
+
 
 
 
