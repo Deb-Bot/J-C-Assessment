@@ -184,6 +184,8 @@ then I should not have any failures running these calls concurrently.
   - PASSED
    
 **5)The software should support a graceful shutdown request.  Meaning, it should allow any in-flight password hashing to complete, reject any new requests, respond with a 200 and shutdown.**
+- **Notes: The supplied command curl -X POST -d ‘shutdown’ http://127.0.0.1:8088/hash
+  - Windows users will need to put double-quotes around "shutdown"
 
 Happy
   - Given I POST to shutdown the software,
