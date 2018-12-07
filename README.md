@@ -13,6 +13,7 @@
 
 #### Test Plan
 ##### (Note - all testing done in Windows 10 using: PowerShell, Command Window, Postman, Zenmap, Fiddler, jMeter)
+##### If I had more time, I would have written automated tests for better concurrency testing and also testing around the shutdown criteria.
 
 **1) When launched, the application should wait for http connections.**
 
@@ -204,7 +205,6 @@ Happy
 This appears to be somewhat tested in test case #5, but at the same time, I wanted to slow down the shutdown call somehow, I was not able to figure out how to do that.  
 
 
-   
 
 
 
